@@ -1,0 +1,21 @@
+<div *ngIf="loading">Loading hotels...</div>
+<div *ngIf="!loading && hotels.length === 0">No hotels found</div>
+
+<div class="results-container" *ngIf="!loading && displayedHotels.length">
+  <div *ngFor="let hotel of displayedHotels" class="hotel-card">
+    <img [src]="hotel.heroImage" alt="{{ hotel.name }}" />
+    <h2>{{ hotel.name }}</h2>
+    <p>{{ hotel.address }}</p>
+    <p>Rating: {{ hotel.starRating }} ★</p>
+    <p>Reviews: {{ hotel.userReview.count }} | Avg Rating: {{ hotel.userReview.rating }}</p>
+    <p>Price: ₹{{ hotel.rate.total / 100 }}</p>
+  </div>
+</div>
+
+<mat-paginator *ngIf="!loading && displayedHotels.length"
+  [length]="totalResults"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  [pageSizeOptions]="[5, 10, 25]"
+  (page)="onPageChange($event)">
+</mat-paginator>

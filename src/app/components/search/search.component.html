@@ -1,0 +1,55 @@
+<div class="page-wrapper">
+  <div class="form-container">
+    <h2 class="form-header">Hotel Search</h2>
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+
+      <mat-form-field appearance="outline" class="form-group">
+        <mat-label>Location</mat-label>
+        <input matInput formControlName="location" placeholder="e.g. SIN" />
+        <mat-error *ngIf="searchForm.get('location')?.touched && searchForm.get('location')?.invalid">
+          Location is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-group">
+        <mat-label>Check-in Date</mat-label>
+        <input matInput [matDatepicker]="checkinPicker" formControlName="checkin_date" />
+        <mat-datepicker-toggle matSuffix [for]="checkinPicker"></mat-datepicker-toggle>
+        <mat-datepicker #checkinPicker></mat-datepicker>
+        <mat-error *ngIf="searchForm.get('checkin_date')?.touched && searchForm.get('checkin_date')?.invalid">
+          Check-in date is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-group">
+        <mat-label>Check-out Date</mat-label>
+        <input matInput [matDatepicker]="checkoutPicker" formControlName="checkout_date" />
+        <mat-datepicker-toggle matSuffix [for]="checkoutPicker"></mat-datepicker-toggle>
+        <mat-datepicker #checkoutPicker></mat-datepicker>
+        <mat-error *ngIf="searchForm.get('checkout_date')?.touched && searchForm.get('checkout_date')?.invalid">
+          Check-out date is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-group">
+        <mat-label>Rooms</mat-label>
+        <input matInput type="number" formControlName="rooms" min="1" />
+        <mat-error *ngIf="searchForm.get('rooms')?.touched && searchForm.get('rooms')?.invalid">
+          Must be at least 1 room.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-group">
+        <mat-label>Guests</mat-label>
+        <input matInput type="number" formControlName="guests" min="1" required />
+        <mat-error *ngIf="searchForm.get('guests')?.touched && searchForm.get('guests')?.invalid">
+          Must be at least 1 guest.
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="searchForm.invalid">
+        Search
+      </button>
+    </form>
+  </div>
+</div>
